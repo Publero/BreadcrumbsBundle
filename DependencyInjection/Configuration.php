@@ -2,22 +2,21 @@
 
 namespace WhiteOctober\BreadcrumbsBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration
+class Configuration implements ConfigurationInterface
 {
-    /**
-     * Generates the configuration tree.
-     * No configuration is currently required.
-     *
-     * @return Symfony\Component\DependencyInjection\Configuration\NodeInterface
-     */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root("white_october_breadcrumbs", 'array');
+        $rootNode
+            ->children()
+                ->scalarNode('homepage')->defaultValue(null)->end()
+            ->end()
+        ;
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 }

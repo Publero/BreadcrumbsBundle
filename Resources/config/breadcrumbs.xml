@@ -7,6 +7,15 @@
       
         <!-- Our service, for controllers -->
         <service id="white_october_breadcrumbs" class="WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs"></service>
+        
+        <service id="white_october_router_breadcrumbs" class="WhiteOctober\BreadcrumbsBundle\Model\RouterBreadcrumbs" scope="request">
+            <argument type="service" id="request" />
+            <argument type="service" id="router" />
+            <call method="addItem">
+                <argument>%white_october_breadcrumbs.homepage%</argument>
+                <argument>%white_october_breadcrumbs.homepage_url%</argument>
+            </call>
+        </service>
 
         <!-- Templating helper -->
         <service id="white_october_breadcrumbs.helper" class="WhiteOctober\BreadcrumbsBundle\Templating\Helper\BreadcrumbsHelper">
@@ -17,8 +26,8 @@
 
         <!-- Twig extension -->
         <service id="white_october_breadcrumbs.twig" class="WhiteOctober\BreadcrumbsBundle\Twig\Extension\BreadcrumbsExtension">
-          <argument type="service" id="service_container" />
-          <tag name="twig.extension" />
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
         </service>
 
     </services>

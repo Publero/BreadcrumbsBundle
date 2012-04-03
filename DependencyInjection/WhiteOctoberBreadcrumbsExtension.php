@@ -12,7 +12,7 @@ class WhiteOctoberBreadcrumbsExtension extends Extension
 {
     /**
      * Loads our service, accessible as "white_october_breadcrumbs"
-     * 
+     *
      * @param array $configs
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return void
@@ -21,5 +21,10 @@ class WhiteOctoberBreadcrumbsExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('breadcrumbs.xml');
+
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->setParameter($this->getAlias() . '.homepage', $config['homepage']);
+        $container->setParameter($this->getAlias() . '.homepage_url', '/');
     }
 }
